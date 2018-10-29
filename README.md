@@ -1,6 +1,8 @@
 # flask-pytorch-backend
 
 ### 1. Create the frontend
+### App.js in this repo is a basic start where you can upload an image in the frontend that is sent to the Flask backend
+
 Following steps describes how to create a very simple frontend using ReactJS
 - Create a new app by following https://github.com/facebook/create-react-app
 
@@ -10,8 +12,7 @@ cd my-app
 npm start
 ```
 
-### App.js in this repo is a basic start where you can upload an image in the frontend that is sent to the Flask backend
-1.1. Create a button for choosing an image
+####1.1. Create a button for choosing an image
 
 `<input type="file" name="pic" accept="image/*" />`
 
@@ -90,7 +91,7 @@ generatePreviewImgUrl(file, callback)
 
 
 1.9. Update the button to trigger event handler
-<pre> <input type="file" name="file" <b>onChange={this.handleChange}</b> /> </pre>
+`<input type="file" name="file" onChange={this.handleChange} /> `
 
 
 1.10. Install and import axios for image upload
@@ -122,27 +123,27 @@ generatePreviewImgUrl(file, callback)
 
 
 1.13. Update the submit button to trigger uploadHandler
-`<input type="submit" **onClick={this.uploadHandler}** />`
+`<input type="submit" onClick={this.uploadHandler} />`
 
 
 1.14. Update the state with the response from the backend
-``` 
+<pre>
    this.state = {
       previewImgUrl: false,
       imgHeight: 200,
-      **imagePrediction: ""**,
+      <b>imagePrediction: ""</b>,
     }
-```
+</pre>
 
 
 1.15. Update the event handler to reset the predicted image class when a new image is uploaded
-```
+<pre>
 this.setState({
               previewImgUrl,
-              **imagePrediction:""**
+              <b>imagePrediction:""</b>
             })
           })
-```
+</pre>
 
 
 1.16. Add a hidden text that appears once the model predicted the image class
@@ -155,17 +156,17 @@ this.setState({
 
 
 1.17. **Optional:** add a function that calculates the time it takes for the model to predict the image class
-```
-**var t0 = performance.now();**
+<pre>
+<b>var t0 = performance.now();</b>
     axios.post('http://127.0.0.1:5000/upload', formData)
     .then(function(response, data) {
             data = response.data;
             self.setState({imagePrediction:data})
-            **var t1 = performance.now();**
-            **console.log("The time it took to predict the image " + (t1 - t0) + " milliseconds.")**
+            <b>var t1 = performance.now();</b>
+            <b>console.log("The time it took to predict the image " + (t1 - t0) + " milliseconds.")</b>
         })
     }
-```
+</pre>
 ### 2. Create the backend
 Following steps describes how to create a very simple backend using Flask using http://flask.pocoo.org/docs/1.0/quickstart/ and http://flask.pocoo.org/docs/0.12/patterns/fileuploads/
 
