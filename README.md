@@ -12,7 +12,7 @@ cd my-app
 npm start
 ```
 
-####1.1. Create a button for choosing an image
+#### 1.1. Create a button for choosing an image
 
 `<input type="file" name="pic" accept="image/*" />`
 
