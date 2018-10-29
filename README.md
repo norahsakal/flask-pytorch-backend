@@ -56,7 +56,7 @@ generatePreviewImgUrl(file, callback)
   constructor() {
     super()
     this.state = {
-      **previewImgUrl: false,**
+      <b>previewImgUrl: false,</b>
       <b>imgHeight: 200</b>
     }
     this.generatePreviewImgUrl = this.generatePreviewImgUrl.bind(this)
@@ -65,7 +65,7 @@ generatePreviewImgUrl(file, callback)
 
 
 1.7. Create an event handler that gets triggered when the image is chosen
-```
+<pre>
     handleChange(event) {
       const file = event.target.files[0]
       
@@ -78,11 +78,11 @@ generatePreviewImgUrl(file, callback)
       console.log("Into handleChange")
       this.generatePreviewImgUrl(file, previewImgUrl => {
             this.setState({
-              **previewImgUrl**
+              <b>previewImgUrl</b>
             })
           })
     }
-```
+</pre>
 
 
 1.8. Update the constructor with binding handleChange to this
@@ -90,7 +90,7 @@ generatePreviewImgUrl(file, callback)
 
 
 1.9. Update the button to trigger event handler
-`<input type="file" name="file" **onChange={this.handleChange}** /> `
+<pre><input type="file" name="file" <b>onChange={this.handleChange}</b> /> </pre>
 
 
 1.10. Install and import axios for image upload
