@@ -57,7 +57,7 @@ generatePreviewImgUrl(file, callback)
     super()
     this.state = {
       **previewImgUrl: false,**
-      **imgHeight: 200**
+      *imgHeight: 200*
     }
     this.generatePreviewImgUrl = this.generatePreviewImgUrl.bind(this)
   }
