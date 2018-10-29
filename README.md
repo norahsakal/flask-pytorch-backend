@@ -4,7 +4,7 @@
 Following steps describes how to create a very simple frontend using ReactJS
 - Create a new app by following https://github.com/facebook/create-react-app
 
-`npx create-react-app my-app
+```npx create-react-app my-app
 cd my-app
 npm start```
 
