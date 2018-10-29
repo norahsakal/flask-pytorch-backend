@@ -90,7 +90,7 @@ generatePreviewImgUrl(file, callback)
 
 
 1.9. Update the button to trigger event handler
-<pre><input type="file" name="file" <b>onChange={this.handleChange}</b> /> </pre>
+<pre> <input type="file" name="file" <b>onChange={this.handleChange}</b> /> </pre>
 
 
 1.10. Install and import axios for image upload
