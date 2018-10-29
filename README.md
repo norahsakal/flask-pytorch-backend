@@ -65,7 +65,7 @@ generatePreviewImgUrl(file, callback)
 </pre>
 
 
-#### 1.7. Create an event handler that gets triggered when the image is chosen
+#### 1.7. Create an event handler that gets triggered when the image is chosen and sets state property to `previewImgUrl` 
 <pre>
     handleChange(event) {
       const file = event.target.files[0]
@@ -102,7 +102,7 @@ generatePreviewImgUrl(file, callback)
 
 
 #### 1.11. Create a function that sends the chosen image to the backend
-```
+```javascript
   uploadHandler(e) {
     var self = this;
     const formData = new FormData()
@@ -147,7 +147,7 @@ this.setState({
 
 
 #### 1.16. Add a hidden text that appears once the model predicted the image class
-```
+```javascript
 { this.state.imagePrediction &&
             <p>The prediction is: {this.state.imagePrediction}
             </p>
@@ -156,7 +156,7 @@ this.setState({
 
 
 #### 1.17. **Optional:** add a function that calculates the time it takes for the model to predict the image class
-<pre>
+<pre>javascript
 <b>var t0 = performance.now();</b>
     axios.post('http://127.0.0.1:5000/upload', formData)
     .then(function(response, data) {
