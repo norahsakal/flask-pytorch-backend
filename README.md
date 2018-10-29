@@ -4,11 +4,9 @@
 Following steps describes how to create a very simple frontend using ReactJS
 - Create a new app by following https://github.com/facebook/create-react-app
 
-`npx create-react-app my-app`
-
-`cd my-app`
-
-`npm start`
+`npx create-react-app my-app
+cd my-app
+npm start```
 
 ### App.js in this repo is a basic start where you can upload an image in the frontend that is sent to the Flask backend
 1. Create a button for choosing an image
