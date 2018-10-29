@@ -4,9 +4,11 @@
 Following steps describes how to create a very simple frontend using ReactJS
 - Create a new app by following https://github.com/facebook/create-react-app
 
-```npx create-react-app my-app
+```
+npx create-react-app my-app
 cd my-app
-npm start```
+npm start
+```
 
 ### App.js in this repo is a basic start where you can upload an image in the frontend that is sent to the Flask backend
 1. Create a button for choosing an image
@@ -17,20 +19,22 @@ npm start```
 
 3. Define the state
 ```
-  constructor() {
-    super()
-    this.state = {
-    }
+constructor() {
+  super()
+  this.state = {
   }
+}
 ```
 
 3. Create a field for previewing the uploaded image
-```  generatePreviewImgUrl(file, callback) {
-      const reader = new FileReader()
-      const url = reader.readAsDataURL(file)
-      reader.onloadend = e => callback(reader.result)
-    }
-``
+```  
+generatePreviewImgUrl(file, callback) 
+  {
+  const reader = new FileReader()
+  const url = reader.readAsDataURL(file)
+  reader.onloadend = e => callback(reader.result)
+   }
+```
 
 4. Update the state
 ```
@@ -97,12 +101,13 @@ npm start```
 `<input type="submit" onClick={this.uploadHandler} />`
 
 11. Update the state with the response from the backend
-```    this.state = {
+``` 
+   this.state = {
       previewImgUrl: false,
       imgHeight: 200,
       imagePrediction: "",
     }
-``
+```
 
 12. Update the event handler to reset the predicted image class when a new image is uploaded
 ```
@@ -118,7 +123,6 @@ this.setState({
 { this.state.imagePrediction &&
             <p>The prediction is: {this.state.imagePrediction}
             </p>
-
           }
 ```
 
@@ -163,7 +167,6 @@ from flask import Flask, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import os
-
 ```
 
 7. Add path for uploaded files and choose allowed  file extensions
@@ -264,7 +267,6 @@ def predict_img(img_path):
 from torchvision import models, transforms
 from torch.autograd import Variable
 import torchvision.models as models
-
 ```
 
 12. Add a json with ImageNet classes
@@ -279,11 +281,9 @@ with open('imagenet_classes.json', 'r') as fr:
     json_classes = json.loads(fr.read())
 ```
 
-
 13. Install and add PIL
 `pip install pillow`
 `from PIL import Image`
-
 
 
 ### 3. Choose classifying model
