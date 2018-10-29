@@ -1,72 +1,50 @@
 # flask-pytorch-backend
 
 ### 1. Create the frontend
-### App.js in this repo is a basic start where you can upload an image in the frontend that is sent to the Flask backend
-
 Following steps describes how to create a very simple frontend using ReactJS
-#### 1.1. Create a new reactJS app by following https://github.com/facebook/create-react-app
+- Create a new app by following https://github.com/facebook/create-react-app
+`npx create-react-app my-app`
+`cd my-app`
+`npm start`
 
-```
-npx create-react-app my-app
-cd my-app
-npm start
-```
+### App.js in this repo is a basic start where you can upload an image in the frontend that is sent to the Flask backend
+1. Create a button for choosing an image
+`<input type="file" name="pic" accept="image/*" />`
 
-#### 1.2. Create a button in the App.js file for choosing an image
-
-`<input type="file" name="file" />`
-
-
-#### 1.3. Create a button that is sending the image to the backend
-
+2. Create a button that is sending the image to the backend
 `<input type="submit" />`
 
-
-#### 1.4. Define the state
+3. Define the state
 ```
-constructor() {
-  super()
-  this.state = {
-  }
-}
-```
-
-
-#### 1.5. Create a function for previewing the uploaded image
-```  
-generatePreviewImgUrl(file, callback) 
-  {
-  const reader = new FileReader()
-  const url = reader.readAsDataURL(file)
-  reader.onloadend = e => callback(reader.result)
-   }
-```
-
-
-#### 1.6. Add a field below the buttons for previewing the chosen image
-```
-{ this.state.previewImageUrl &&
-          <img height={this.state.imageHeight} alt="" src={this.state.previewImageUrl} />
-          }
-```
-
-
-#### 1.7. Update the state with `previewImgUrl: false` before an image is chosen and desired height of the image preview `imgHeight: 200`
-
-<pre>
   constructor() {
     super()
     this.state = {
-      <b>previewImgUrl: false,</b>
-      <b>imgHeight: 200</b>
+    }
+  }
+```
+
+3. Create a field for previewing the uploaded image
+```  generatePreviewImgUrl(file, callback) {
+      const reader = new FileReader()
+      const url = reader.readAsDataURL(file)
+      reader.onloadend = e => callback(reader.result)
+    }
+``
+
+4. Update the state
+```
+  constructor() {
+    super()
+    this.state = {
+      previewImgUrl: false,
+      imgHeight: 200,
     }
     this.generatePreviewImgUrl = this.generatePreviewImgUrl.bind(this)
   }
-</pre>
+```
 
-
-#### 1.8. Create an event handler that gets triggered when the image is chosen and sets state property to `previewImgUrl` 
-<pre>
+5. Create an event handler that gets triggered when the image is chosen
+```
     handleChange(event) {
       const file = event.target.files[0]
       
@@ -79,36 +57,30 @@ generatePreviewImgUrl(file, callback)
       console.log("Into handleChange")
       this.generatePreviewImgUrl(file, previewImgUrl => {
             this.setState({
-              <b>previewImgUrl</b>
+              previewImgUrl
             })
           })
     }
-</pre>
+```
 
-
-#### 1.9. Update the constructor with binding handleChange to this
+6. Update the constructor with binding handleChange to this
 `this.handleChange = this.handleChange.bind(this)`
 
-
-#### 1.10. Update the button to trigger event handler
+7. Update the button to trigger event handler
 `<input type="file" name="file" onChange={this.handleChange} /> `
 
-
-#### 1.11. Install and import axios for image upload
-
+8. Install and import axios for image upload
 `npm install axios`
-
 `import axios from 'axios';`
 
-
-#### 1.12. Create a function that sends the chosen image to the backend
-```javascript
+8. Create a function that sends the chosen image to the backend
+```
   uploadHandler(e) {
     var self = this;
     const formData = new FormData()
     formData.append('file', this.state.imgFile, 'img.png')
     
-    axios.post('http://localhost:5000/upload', formData)
+    axios.post('http://127.0.0.1:5000/upload', formData)
     .then(function(response, data) {
             data = response.data;
             self.setState({imagePrediction:data})
@@ -117,122 +89,99 @@ generatePreviewImgUrl(file, callback)
   }
 ```
 
-
-#### 1.13. Update the constructor with binding uploadHandler to this
+9. Update the constructor with binding uploadHandler to this
 `this.uploadHandler = this.uploadHandler.bind(this)` 
 
-
-#### 1.14. Update the submit button to trigger uploadHandler
+10. Update the submit button to trigger uploadHandler
 `<input type="submit" onClick={this.uploadHandler} />`
 
-
-#### 1.15. Update the state with the response from the backend
-<pre>
-   this.state = {
+11. Update the state with the response from the backend
+```    this.state = {
       previewImgUrl: false,
       imgHeight: 200,
-      <b>imagePrediction: ""</b>,
+      imagePrediction: "",
     }
-</pre>
+``
 
-
-#### 1.16. Update the event handler to reset the predicted image class when a new image is uploaded
-<pre>
+12. Update the event handler to reset the predicted image class when a new image is uploaded
+```
 this.setState({
               previewImgUrl,
-              <b>imagePrediction:""</b>
+              imagePrediction:""
             })
           })
-</pre>
+```
 
-
-#### 1.17. Add a hidden text that appears once the model predicted the image class
-```javascript
+13. Add a hidden text that appears once the model predicted the image class
+```
 { this.state.imagePrediction &&
             <p>The prediction is: {this.state.imagePrediction}
             </p>
+
           }
 ```
 
-
-#### 1.18. **Optional:** add a function that calculates the time it takes for the model to predict the image class
-<pre>
-<b>var t0 = performance.now();</b>
+14. Optional: add a function that calculates the time it takes for the model to predict the image class
+```
+var t0 = performance.now();
     axios.post('http://127.0.0.1:5000/upload', formData)
     .then(function(response, data) {
             data = response.data;
             self.setState({imagePrediction:data})
-            <b>var t1 = performance.now();</b>
-            <b>console.log("The time it took to predict the image " + (t1 - t0) + " milliseconds.")</b>
+            var t1 = performance.now();
+            console.log("The time it took to predict the image " + (t1 - t0) + " milliseconds.")
         })
     }
-</pre>
+```
 ### 2. Create the backend
-### app.py in this repo is a basic start of a Flask backend with a classification model that predicts the class of the uploaded image
-
 Following steps describes how to create a very simple backend using Flask using http://flask.pocoo.org/docs/1.0/quickstart/ and http://flask.pocoo.org/docs/0.12/patterns/fileuploads/
 
-#### 2.1. Create a new Python file and import the Flask class 
-
+1. Create a new file and import the Flask class 
 `pip install flask`
-
 `from flask import Flask`
 
-
-#### 2.2. Create an instance of the class
-
+2. Create an instance of the class
 `app = Flask(__name__)`
 
-
-#### 2.3. Create route() decorator
-```python
-@app.route('/')
+3. Create route() decorator
+```@app.route('/')
 def hello_world():
-    return 'Hello, World!'
-```
+    return 'Hello, World!'```
 
+4. Create __main__ function
+´´´if __name__ == "__main__":
+    app.run(debug=True)´´´
 
-#### 2.4. Create __main__ function
-```python
-if __name__ == "__main__":
-app.run(debug=True)
-```
-
-
-#### 2.5. Test run the app, it usually appears in 5000
-
+5. Test run the app, it usually appears in 5000
 `python app.py`
 
-
-#### 2.6. Update the imports
-```python
+6. Update the imports
+```
 import os
 from flask import Flask, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
+import os
 
 ```
 
-
-#### 2.7. Add path for uploaded files and choose allowed  file extensions
-```python
+7. Add path for uploaded files and choose allowed  file extensions
+```
 UPLOAD_FOLDER = 'data/uploads/'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ``` 
 
-
-#### 2.8. Create a function that checks if the uploaded image extension is valid
-```python
+8. Create a function that checks if the uploaded image extension is valid
+```
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 ```
 
-
-#### 2.9. Create a function that receives the image from the frontend
-```python
+9. Create a function that receives the image from the frontend
+```
 def upload_file():
     if request.method == 'POST':
         print("request data", request.data)
@@ -253,12 +202,10 @@ def upload_file():
             print("predicted_image_class", predicted_image_class)
 ```
 
-
-#### 2.10. Create a function that predicts the uploaded image
-```python
+10. Create a function that predicts the uploaded image
+```
 @app.route('/upload', methods=['GET', 'POST'])
 def predict_img(img_path):
-
     # Available model archtectures = 
     #'alexnet','densenet121', 'densenet169', 'densenet201', 'densenet161','resnet18', 
     #'resnet34', 'resnet50', 'resnet101', 'resnet152','inceptionv3','squeezenet1_0', 'squeezenet1_1',
@@ -310,36 +257,33 @@ def predict_img(img_path):
     return labels[outputs.data.numpy().argmax()]
 ```
 
-
-#### 2.11. Import Pytorch related imports
-
+11. Import Pytorch related imports
 `pip install torchvision`
-
-```python
+```
 from torchvision import models, transforms
 from torch.autograd import Variable
 import torchvision.models as models
+
 ```
 
-
-#### 2.12. Add a json with ImageNet classes
-```python
+12. Add a json with ImageNet classes
+```
 import json
 import requests
 ```
 
-```python
+```
 class_labels = 'imagenet_classes.json'
 with open('imagenet_classes.json', 'r') as fr:
     json_classes = json.loads(fr.read())
 ```
 
 
-#### 2.13. Install and add PIL
-
+13. Install and add PIL
 `pip install pillow`
-
 `from PIL import Image`
 
 
-## Done, that's all!
+
+### 3. Choose classifying model
+Following steps describes how to choose the classification model
