@@ -52,16 +52,16 @@ generatePreviewImgUrl(file, callback)
 
 1.6. Update the state with `previewImgUrl: false` before an image is chosen and desired height of the image preview `imgHeight: 200`
 
-```
+<pre>
   constructor() {
     super()
     this.state = {
       **previewImgUrl: false,**
-      <pre><b>imgHeight: 200</b></pre>
+      <b>imgHeight: 200</b>
     }
     this.generatePreviewImgUrl = this.generatePreviewImgUrl.bind(this)
   }
-```
+</pre>
 
 
 1.7. Create an event handler that gets triggered when the image is chosen
