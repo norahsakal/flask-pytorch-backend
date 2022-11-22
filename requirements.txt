@@ -8,7 +8,7 @@ itsdangerous==1.1.0
 Jinja2==2.10
 MarkupSafe==1.0
 numpy==1.15.3
-Pillow==9.0.1
+Pillow==9.3.0
 requests==2.20.0
 six==1.11.0
 torch==0.4.1
