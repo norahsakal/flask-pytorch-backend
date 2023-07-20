@@ -1,5 +1,5 @@
 image:
   repository: docker.io/library/backend-image
-  tag: v2
+  tag: v1
 
 createPersistentVolume: true
