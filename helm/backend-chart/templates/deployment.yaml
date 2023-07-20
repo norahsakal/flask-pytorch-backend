@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: my-backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8001
+{{- if .Values.createPersistentVolume }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+{{- end }}

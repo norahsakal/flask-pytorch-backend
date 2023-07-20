@@ -1,0 +1,3 @@
+image:
+  repository: docker.io/library/frontend-image
+  tag: v2
